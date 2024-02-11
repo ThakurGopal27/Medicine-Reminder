@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medication Scheduler</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,200;0,300;1,200&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="styles.css"> 
+</head>
+
+<body>
+    <header>
+        <h1>Medication Scheduler</h1>
+    </header>
+
+    <main>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMnUUgPFbp2kI5b8hK7OTBzn07ZzEHI0ZgRQ&usqp=CAU"
+            alt="Medication Image" style="max-width: 100%;">
+        <h2>Add Medication</h2>
+        <br>
+        <form id="medicationForm">
+            <label for="medicationName">Medication Name:</label>
+            <input type="text" id="medicationName" name="medicationName" required>
+
+            <label for="schedule">Schedule Time:</label>
+            <input type="time" id="schedule" name="schedule" required>
+
+            <!-- Placeholder for additional features -->
+            <label for="scheduleType">Schedule Type:</label>
+            <select id="scheduleType" name="scheduleType">
+                <option value="onceADay">Once a Day</option>
+                <option value="twiceADay">Twice a Day</option>
+                <option value="customInterval">Custom Interval Based</option>
+                <!-- Add more options based on your needs -->
+            </select>
+
+            <label for="scheduleInterval">Custom Interval:</label>
+            <input type="number" id="scheduleInterval" name="scheduleInterval" min="1">
+
+            <label for="numberOfDays">Number of Days:</label>
+            <input type="number" id="numberOfDays" name="numberOfDays" min="1">
+
+            <label for="specificDays">Specific Days:</label>
+            <input type="text" id="specificDays" name="specificDays">
+
+            <button type="button" onclick="addMedication()">Add Medication</button>
+        </form>
+  
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Medication Scheduler</p>
+    </footer>
+
+    <script>
+       
+        function scheduleReminder(time, type, interval, days) {
+            
+            console.log('Reminder Scheduled:');
+            console.log('Medication Time:', time);
+            console.log('Schedule Type:', type);
+            console.log('Custom Interval:', interval);
+            console.log('Number of Days:', days);
+        }
+
+        
+        function addMedication() {
+            const medicationName = document.getElementById('medicationName').value;
+            const dosage = document.getElementById('dosage').value;
+            const schedule = document.getElementById('schedule').value;
+            const scheduleType = document.getElementById('scheduleType').value;
+            const scheduleInterval = document.getElementById('scheduleInterval').value;
+            const numberOfDays = document.getElementById('numberOfDays').value;
+            const specificDays = document.getElementById('specificDays').value;
+
+
+            if (medicationName && dosage && schedule) {
+                const medicationList = document.getElementById('medicationItems');
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `
+                    <strong>${medicationName}</strong><br>
+                    Dosage: ${dosage}<br>
+                    Schedule: ${schedule}<br>
+                    Schedule Type: ${scheduleType}<br>
+                    Custom Interval: ${scheduleInterval || 'N/A'}<br>
+                    Number of Days: ${numberOfDays || 'N/A'}<br>
+                    Specific Days: ${specificDays || 'N/A'}
+                `;
+                medicationList.appendChild(listItem);
+
+                
+                scheduleReminder(schedule, scheduleType, scheduleInterval, specificDays);
+
+                
+                document.getElementById('medicationForm').reset();
+            } else {
+                alert('Please fill in all fields.');
+            }
+        }
+    </script>
+</body>
+
+</html>
